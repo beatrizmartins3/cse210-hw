@@ -2,57 +2,57 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 
-class Entry {
-    public string prompt;
-    public string response;
+class Entry{
+    public string thePrompt;
+    public string answer;
     public DateTime date;
 
-    public Entry(string prompt, string response, DateTime date) {
-        this.prompt = prompt;
-        this.response = response;
-        this.date = date;
+    public Entry(string thePrompt, string answer,DateTime date){
+        this.thePrompt=thePrompt;
+        this.answer=answer;
+        this.date=date;
     }
 
-    public override string ToString() {
-        return "[" + date.ToShortDateString() + "] " + prompt + "\n" + response + "\n";
+    public override string ToString(){
+        return "("+ date.ToString() +")" + " " +thePrompt+ " "+"=" + answer;
     }
+
 }
 
-class Journal {
-    public List<Entry> entries;
-
-    public Journal() {
-        entries = new List<Entry>();
+class Journal{
+    public List<Entry>entries;
+    public Journal(){
+        entries=new List<Entry> ();
     }
 
-    public void AddEntry(string prompt, string response, DateTime date) {
-        entries.Add(new Entry(prompt, response, date));
+    public void AddEntry(string thePrompt,string answer,DateTime date){
+        entries.Add(new Entry(thePrompt,answer,date));
     }
 
-    public void DisplayEntries() {
-        foreach (Entry entry in entries) {
+    public void DisplayEntries(){
+        foreach(Entry entry in entries){
             Console.WriteLine(entry.ToString());
         }
     }
 
-    public void SaveToFile(string filename) {
-        using (StreamWriter sw = new StreamWriter(filename)) {
-            foreach (Entry entry in entries) {
-                sw.WriteLine(entry.prompt);
-                sw.WriteLine(entry.response);
-                sw.WriteLine(entry.date.ToShortDateString());
+    public void SaveToFile(string filename){
+        using (StreamWriter strW=new StreamWriter(filename)){
+            foreach(Entry entry in entries){
+                strW.WriteLine(entry.thePrompt);
+                strW.WriteLine(entry.answer);
+                strW.WriteLine(entry.date);
             }
         }
+
     }
 
-    public void LoadFromFile(string filename) {
-        entries.Clear();
-        using (StreamReader sr = new StreamReader(filename)) {
-            while (!sr.EndOfStream) {
-                string prompt = sr.ReadLine();
-                string response = sr.ReadLine();
-                DateTime date = DateTime.Parse(sr.ReadLine());
-                entries.Add(new Entry(prompt, response, date));
+    public void LoadFromFile(string filename){
+        using (StreamReader strR=new StreamReader(filename)){
+            while(!strR.EndOfStream){
+                string thePrompt=strR.ReadLine();
+                string answer=strR.ReadLine();
+                DateTime date= DateTime.Parse(strR.ReadLine());
+                entries.Add(new Entry(thePrompt,answer,date));
             }
         }
     }
@@ -98,11 +98,11 @@ class Program {
 
             switch (input) {
                 case "1":
-                    string prompt = GetRandomPrompt();
-                    Console.WriteLine(prompt);
-                    Console.Write("> ");
-                    string response = Console.ReadLine();
-                    journal.AddEntry(prompt, response, DateTime.Now);
+                    string thePrompt = GetRandomPrompt();
+                    Console.WriteLine(thePrompt);
+                    Console.Write("= ");
+                    string answer = Console.ReadLine();
+                    journal.AddEntry(thePrompt, answer, DateTime.Now);
                     Console.WriteLine("Entry added.");
                     break;
 
@@ -114,14 +114,14 @@ class Program {
                     Console.Write("Enter filename: ");
                     string filename = Console.ReadLine();
                     journal.SaveToFile(filename);
-                    Console.WriteLine("Journal saved to file.");
+                    Console.WriteLine("Entry saved.");
                     break;
 
                 case "4":
                     Console.Write("Enter filename: ");
                     filename = Console.ReadLine();
                     journal.LoadFromFile(filename);
-                    Console.WriteLine("Journal loaded from file.");
+                    Console.WriteLine("Entry loaded from file.");
                     break;
 
                 case "5":
