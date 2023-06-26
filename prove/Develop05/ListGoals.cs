@@ -2,30 +2,27 @@ public class ListGoals:Goal
 {
     
     protected int _count;
+    List<Goal> goals = new List<Goal>();
     public ListGoals( string name, string descrip, string p) : base ( name, descrip, p) //, bonus,  many
     {
-       // _count=count;
-      
-        
+       
     }
-
     
-    public string GetReturn(int _count)
+    
+    
+    public string GetReturn()
     {
-        return $"{_count}. {_name} ({_description})";
+        _count++;
+        return $"{_count}. {_name} ({_description}), {_points} points";
     }
 
     public override void  GetGoal()
     {
-        _count++;
-        
         
 
         Console.WriteLine("The Goals are:");
-        Console.WriteLine(GetReturn(_count));
+        Console.WriteLine(GetReturn());
         
-        
-       
     }
 
 }

@@ -2,22 +2,26 @@ using System;
 
 class Program
 {
+    
+
     static void Main(string[] args)
     {
         string userValue;
-        int points=0;
+        string points="";
         Goal g;
-        string n=" ";
+        string n="";
         string d="";
-        string pt="";
+        string pt="0";
         int b;
         int mB;
+        int cGoal;
         
         
          
         do
         {
-            Console.WriteLine($"You have {points} points. \n ");
+            Console.WriteLine($"You have {pt} points.");
+            Console.WriteLine();
             Console.WriteLine("Menu Options:");
             Console.WriteLine("1. Create New Goal");
             Console.WriteLine("2. List Goals");
@@ -45,158 +49,112 @@ class Program
                 n = Console.ReadLine();
 
                 Console.Write("What is a short description of it? " );
-                   //int pt=Convert.ToInt32(Console.ReadLine());
                 d= Console.ReadLine();
 
                 Console.Write("What is the amount of points associated with this goal? ");
-                pt= Console.ReadLine();
-
-                Console.Write("How many times does this goal need to be accomplished for a bonus? ");
-                b = Convert.ToInt32(Console.ReadLine());
-
-                Console.Write("What is the bonus for accomplishing it that many times? ");
-                mB = Convert.ToInt32(Console.ReadLine());
-
-
-
-
+                points= Console.ReadLine();
+                
 
                 if(_type==1)
                 {
-                    //Console.Write(nG);
-                    //Console.ReadLine();
-
-                    //Console.Write(dG);
-                    //Console.ReadLine();
-
-                    //Console.Write(pnt);
-                   // Console.ReadLine();
-                    //Convert.ToInt32(Console.ReadLine());
-
-                    //g= new Goal(nG,dG,pnt);
-                   // g.GetGoal();
                   
-
-                   g= new Goal(n, d, pt);
+                   g= new Goal(n, d, points);
                    g.GetGoal();
         
                 }
 
                 if(_type==2)
                 {
-                    //Console.Write(nG);
-                    //Console.ReadLine();
-
-                    //Console.Write(dG);
-                    //Console.ReadLine();
-
-                    //Console.Write(pnt);
-                    //Console.ReadLine();
-                    //Convert.ToInt32(Console.ReadLine());
-
-                    //Console.WriteLine("What is the name of your goal? ");
-                    //n = Console.ReadLine();
-
-                    //Console.WriteLine(dG);
-                    //string d= Console.ReadLine();
-
-                    //Console.WriteLine(pnt);
-                    //int pt=Convert.ToInt32(Console.ReadLine());
-                    //string pt= Console.ReadLine();
-
-
-
-                    
-                    g= new Goal(n,d,pt);
+                  
+                    g= new Goal(n,d,points);
                     g.GetGoal();
                 }
                 
                 if(_type==3)
                 {
-                    //Console.Write(nG);
-                    //Console.ReadLine();
+                
+                    Check C;
 
-                    //Console.Write(dG);
-                    //Console.ReadLine();
+                    C= new Check(n,d,points);
+                    
+                    Console.Write("How many times does this goal need to be accomplished for a bonus? ");
+                    b = Convert.ToInt32(Console.ReadLine());
 
-                    //Console.Write(pnt);
-                    //Console.ReadLine();
-                    //Convert.ToInt32(Console.ReadLine());
+                    Console.Write("What is the bonus for accomplishing it that many times? ");
+                    mB = Convert.ToInt32(Console.ReadLine());
 
-                    //Console.Write("How many times does this goal need to be accomplished for a bonus? ");
-                    //int b = Convert.ToInt32(Console.ReadLine());
-
-                    //Console.Write("What is the bonus for accomplishing it that many times? ");
-                    //int mB = Convert.ToInt32(Console.ReadLine());
-
-                    //Console.WriteLine("What is the name of your goal? ");
-                    //string n = Console.ReadLine();
-
-                    //Console.WriteLine(dG);
-                    //string d= Console.ReadLine();
-
-                    //Console.WriteLine(pnt);
-                    //int pt=Convert.ToInt32(Console.ReadLine());
-                    //string pt= Console.ReadLine();
-
-
-
-                    g= new Check(n,d,pt,b,mB);
-                    g.GetGoal();
-
-
+                    C.GetGoal();
 
     
                 }
                  
-                
-                //g=new Goal (0," "," ",0,0,0);
-                //Console.WriteLine(iN);
-                //Console.ReadLine();
-
-                //Console.WriteLine(iA);
-                //int.Parse(Console.ReadLine());
-                //Console.ReadLine();
-
-                //Console.WriteLine(sI);
-                //Console.ReadLine();
-
-                
-                //g.GetGoal();
             }
 
             
             else if (userValue=="2")
             {
-                //g=new ListGoals(0,0," "," ",0,0,0);
                 
-                g= new ListGoals(n,d,pt);
-                g.GetGoal();
+                List<ListGoals> lG= new List<ListGoals>();
+                
+                ListGoals l=new ListGoals(n,d,points);
+                lG.Add(l);
+
+                foreach (ListGoals lGoals in lG)
+                {
+                  
+                    lGoals.GetGoal();
+    
+                }
+
                 
             }
 
             else if (userValue=="3")
             {
-                g=new Save(n,d,pt);
+                g=new Save(n,d,points);
                 g.GetGoal();
             }
 
             else if (userValue=="4")
             {
-                g=new Load(n,d,pt);
+                g=new Load(n,d,points);
                 g.GetGoal();
             }
 
-          
+            else if (userValue=="5")
+            {
+                List<ListGoals> lG= new List<ListGoals>();
+
+                ListGoals l=new ListGoals(n,d,points);
+                lG.Add(l);
+
+                foreach (ListGoals lGoals in lG)
+                {
+                    lGoals.GetGoal();
+    
+                }
+                Console.Write("Which goal did you accomplish? ");
+                cGoal = Convert.ToInt32(Console.ReadLine());
+
+                if (cGoal==1)
+                {
+                    Console.WriteLine($"Congratulations! You have earned {points} points.");
+                    Console.WriteLine($"You now have {points} points.");
+                    
+
+                    points+=pt;
+                    Console.WriteLine();
+                
+                }
+ 
+                
+            }
+
             
         }
         while(userValue != "6");
-        
-
-       
-        
-        
-
+ 
 
     }
 }
+//To show creativity I added a message that appears at the end of each completed step

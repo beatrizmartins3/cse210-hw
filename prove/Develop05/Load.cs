@@ -16,9 +16,7 @@ public class Load : Goal
     
         foreach (string line in lines)
         {
-            //string[] parts = line.Split(",");
-            //string firstName = parts[0];
-            //string lastName = parts[1];
+            
             Console.WriteLine(line);
         }
     }
